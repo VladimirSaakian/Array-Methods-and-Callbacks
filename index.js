@@ -29,7 +29,11 @@ hint - you should be looking at the stage key inside of the objects
 */
 
 function getFinals(data) {
-    return data.filter(i => i["Stage"]==="Final");
+    const allFinals = data.filter(function(item){
+        return item.Stage === 'Final';
+    })
+    return allFinals;
+    
 }
 console.log('Task 2',getFinals(fifaData));
 
@@ -56,7 +60,7 @@ function getWinners(data, getFinalsCB){
     return getFinalsCB(data).map(item => item['Home Team Goals'] > item ['Away Team Goals'] ? item['Home Team Name'] : item['Away Team Name']);
 }
 
-console.log(getWinners(fifaData, getFinals));
+console.log('Task 4',getWinners(fifaData, getFinals));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -73,9 +77,9 @@ hint: the strings returned need to exactly match the string in step 4.
 function getWinnersByYear(data,getYearCB,getWinnerCB) {
     const winners = getWinnerCB(data,getFinals);
     const years = getYearCB(data,getFinals);
-    return winners.map((item,index) => `In ${years[index]}, ${item} won the world cup!`)
+    return winners.map((item,data) => `In ${years[data]}, ${item} won the world cup!`)
 }
-console.log(getWinnersByYear(fifaData, getYears, getWinners))
+console.log('Task 5',getWinnersByYear(fifaData, getYears, getWinners))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -88,12 +92,12 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(data) {
+function getAverageGoals(index) {
     
-   return (data.reduce((a,b) => a+b['Home Team Goals']+b['Away Team Goals'],0)/data.length).toFixed(2)
+   return (index.reduce((a,b) => a+b['Home Team Goals']+b['Away Team Goals'],0)/index.length).toFixed(2)
 }
 
-console.log(getAverageGoals(fifaData));
+console.log('Task 6',getAverageGoals(getFinals(fifaData)));
 
 
 
